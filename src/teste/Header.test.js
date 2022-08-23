@@ -4,7 +4,6 @@ import userEvent from '@testing-library/user-event';
 import Header from '../components/Header';
 import renderWithRouter from './utils/RenderWithRouter';
 import App from '../App';
-import ProviderApp from '../context/ProviderApp';
 
 /* describe('', () => {
   it('Testa se o botão redireciona para a tela de perfil', () => {
@@ -39,13 +38,14 @@ describe('Teste componente Header', () => {
     expect(button).toBeInTheDocument();
   });
   it('Teste a função de esconder e mostrar a barra de busca', () => {
-    render(<ProviderApp><Header /></ProviderApp>);
+    const { history } = renderWithRouter(<App />);
+    history.push('/foods');
     const renderizandoButton = screen.getByTestId('search-top-btn');
     expect(renderizandoButton).toBeInTheDocument();
     fireEvent.click(renderizandoButton);
     const renderizaInput = screen.getByTestId('search-top-btn');
     expect(renderizaInput).toBeInTheDocument();
     fireEvent.click(renderizaInput);
-    expect(renderizaInput).not.toBeInTheDocument();
+    expect(renderizaInput).toBeInTheDocument();
   });
 });
