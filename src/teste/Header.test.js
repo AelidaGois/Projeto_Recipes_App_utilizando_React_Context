@@ -1,9 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Header from '../components/Header';
 import renderWithRouter from './utils/RenderWithRouter';
 import App from '../App';
+import ProviderApp from '../context/ProviderApp';
 
 /* describe('', () => {
   it('Testa se o botão redireciona para a tela de perfil', () => {
@@ -27,10 +28,24 @@ describe('Teste componente Header', () => {
     screen.logTestingPlaygroundURL();
     const headerRenderizando = screen.getByText(/profile/i);
     expect(headerRenderizando).toBeInTheDocument();
+    /* const lupa = screen.getByRole('button', { name: /searchicon/i });
+    userEvent.click(lupa);
+    const inputLupa = screen.getAllByTestId('search-top-btn');
+    expect(inputLupa).toBeInTheDocument(); */
   });
   it('Teste se o botão está funcionando', () => {
     render(<Header />);
     const button = screen.getByRole('img', { name: /profileicon/i });
     expect(button).toBeInTheDocument();
+  });
+  it('Teste a função de esconder e mostrar a barra de busca', () => {
+    render(<ProviderApp><Header /></ProviderApp>);
+    const renderizandoButton = screen.getByTestId('search-top-btn');
+    expect(renderizandoButton).toBeInTheDocument();
+    fireEvent.click(renderizandoButton);
+    const renderizaInput = screen.getByTestId('search-top-btn');
+    expect(renderizaInput).toBeInTheDocument();
+    fireEvent.click(renderizaInput);
+    expect(renderizaInput).not.toBeInTheDocument();
   });
 });
