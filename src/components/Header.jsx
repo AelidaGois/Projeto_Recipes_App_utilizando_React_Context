@@ -17,6 +17,9 @@ function Header(props) {
     setSearchBar(!searchBar);
   }
 
+  // o requisito 7 resolvemos com ajuda de um colega e o problema
+  // era, a função não estava funcionando e desestruturamos dentro
+  // da const mesmo
   /* function title() {
     return <span data-testid="page-title">{props.title}</span>;
   } */
