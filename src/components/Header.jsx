@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header(props) {
   const [searchBar, setSearchBar] = useState(false);
@@ -25,6 +26,7 @@ function Header(props) {
   return (
     <div>
       <h1 data-testid="page-title">{ title }</h1>
+      <SearchBar />
       <button type="button" onClick={ userRedirectPage }>
         <img src={ profileIcon } alt="profileIcon" data-testid="profile-top-btn" />
       </button>
