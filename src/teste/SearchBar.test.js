@@ -3,9 +3,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './utils/RenderWithRouter';
 import ProviderApp from '../context/ProviderApp';
-import { meals } from '../../cypress/mocks/meals';
 import SearchBar from '../components/SearchBar';
-import { japaneseMeals } from '../../cypress/mocks/japaneseMeals';
 
 describe('Testes da página de SearchBar', () => {
 //   beforeEach(() => {
@@ -16,9 +14,13 @@ describe('Testes da página de SearchBar', () => {
 //   });
 
   //   afterEach(() => jest.resetAllMocks());
+
+  const searchInput = 'search-input';
+  const execSearchBtn = 'exec-search-btn';
+
   it('Testa se existe um input para busca', () => {
     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
-    const inputSearch = screen.getByTestId('search-input');
+    const inputSearch = screen.getByTestId(searchInput);
     expect(inputSearch).toBeInTheDocument();
   });
 
@@ -33,9 +35,9 @@ describe('Testes da página de SearchBar', () => {
     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
     const food = 'arroz';
     // const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=arroz';
-    const inputSearch = screen.getByTestId('search-input');
+    const inputSearch = screen.getByTestId(searchInput);
     const radio = screen.getByTestId('ingredient-search-radio');
-    const button = screen.getByTestId('exec-search-btn');
+    const button = screen.getByTestId(execSearchBtn);
     userEvent.type(inputSearch, food);
     userEvent.click(radio);
     // jest.resetAllMocks();
@@ -51,9 +53,9 @@ describe('Testes da página de SearchBar', () => {
     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
     const food = 'pão';
     // const url2 = 'https://www.themealdb.com/api/json/v1/1/search.php?s=pão';
-    const inputSearch = screen.getByTestId('search-input');
+    const inputSearch = screen.getByTestId(searchInput);
     const radio = screen.getByTestId('name-search-radio');
-    const button = screen.getByTestId('exec-search-btn');
+    const button = screen.getByTestId(execSearchBtn);
     userEvent.type(inputSearch, food);
     userEvent.click(radio);
     // jest.resetAllMocks();
@@ -70,9 +72,9 @@ describe('Testes da página de SearchBar', () => {
     global.alert = jest.fn();
     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
     const exemple = 'ar';
-    const inputSearch = screen.getByTestId('search-input');
+    const inputSearch = screen.getByTestId(searchInput);
     const radio = screen.getByTestId('first-letter-search-radio');
-    const button = screen.getByTestId('exec-search-btn');
+    const button = screen.getByTestId(execSearchBtn);
     userEvent.type(inputSearch, exemple);
     userEvent.click(radio);
     userEvent.click(button);
