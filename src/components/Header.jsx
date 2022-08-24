@@ -8,6 +8,7 @@ import SearchBar from './SearchBar';
 
 function Header(props) {
   const [searchBar, setSearchBar] = useState(false);
+  /* const [stateSearchBusca, setSearchBusca] = useStatefalse(false); */
   const history = useHistory();
 
   function userRedirectPage() {
@@ -37,6 +38,7 @@ function Header(props) {
         <button type="button" onClick={ handleEnableBar }>
           <img src={ searchIcon } alt="searchIcon" data-testid="search-top-btn" />
         </button>)}
+      {searchBar && (<SearchBar />)}
     </div>
   );
 }
