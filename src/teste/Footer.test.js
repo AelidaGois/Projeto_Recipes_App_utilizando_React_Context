@@ -19,6 +19,11 @@ describe('Testes da página de Footer', () => {
     userEvent.click(food);
     urlValidade('foods', history);
 
+    const drink = screen.getByTestId('drinks-bottom-btn');
+    expect(drink).toBeInTheDocument();
+    userEvent.click(drink);
+    urlValidade('drinks', history);
+
     // const { history } = renderWithRouter(<App />);
     // history.push('/foods');
     // const food = screen.getByTestId('food-bottom-btn');
