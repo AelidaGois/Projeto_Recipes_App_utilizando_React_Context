@@ -30,7 +30,6 @@ function Header(props) {
   return (
     <div>
       <h1 data-testid="page-title">{ title }</h1>
-      <SearchBar />
       <button type="button" onClick={ userRedirectPage }>
         <img src={ profileIcon } alt="profileIcon" data-testid="profile-top-btn" />
       </button>
