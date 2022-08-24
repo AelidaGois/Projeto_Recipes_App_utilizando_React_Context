@@ -46,7 +46,6 @@ function SearchBar() {
 
   const handleSubmitButton = (e) => {
     e.preventDefault();
-    console.log(stateRadio);
     getAPI(stateSearch.value, stateRadio.id);
   };
 
