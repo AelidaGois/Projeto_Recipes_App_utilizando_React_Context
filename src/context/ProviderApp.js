@@ -7,11 +7,18 @@ function ProviderApp({ children }) {
   });
   const [statePassword, setStatePassword] = useState({ password: '',
   });
+  const [stateSearch, setStateSearch] = useState('');
+  const [stateRadio, setStateRadio] = useState('');
 
   const valueObj = { stateEmail,
     setStateEmail,
     statePassword,
-    setStatePassword };
+    setStatePassword,
+    stateSearch,
+    setStateSearch,
+    stateRadio,
+    setStateRadio,
+  };
 
   return (
     <RecipesContext.Provider
