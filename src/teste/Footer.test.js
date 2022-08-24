@@ -7,6 +7,7 @@ import App from '../App';
 
 function urlValidade(url, history) {
   const { pathname } = history.location;
+
   expect(pathname).toBe(`/${url}`);
 }
 describe('Testes da página de Footer', () => {
