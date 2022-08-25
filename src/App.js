@@ -12,6 +12,7 @@ import FoodsInProgress from './pages/FoodsInProgress';
 import DrinksInProgress from './pages/DrinksInProgress';
 import FoodRecipes from './pages/FoodRecipes';
 import DrinkRecipes from './pages/DrinkRecipes';
+import './css/Footer.css';
 
 function App() {
   return (
