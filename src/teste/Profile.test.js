@@ -16,13 +16,13 @@ function urlLink(url, history) {
 describe('Teste da página "Profile"', () => {
   it('Teste de botão "done-recipes"', () => {
     const { history } = renderWithRouter(<App />);
-    const emailInput = 'teste@teste.com';
-    const email = screen.getByTestId('email-input');
-    const senha = screen.getByTestId('password-input');
+    const emailInput = 'teste@email.com';
+    const Email = screen.getByLabelText('Email');
+    const password = screen.getByLabelText('Senha');
     const btn = screen.getByRole('button', { name: /Entrar/i });
 
-    userEvent.type(email, emailInput);
-    userEvent.type(senha, '1234567');
+    userEvent.type(Email, emailInput);
+    userEvent.type(password, '1234567');
     userEvent.click(btn);
 
     history.push('/profile');
