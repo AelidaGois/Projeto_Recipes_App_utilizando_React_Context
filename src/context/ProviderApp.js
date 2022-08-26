@@ -12,6 +12,7 @@ function ProviderApp({ children }) {
   const [stateRadio, setStateRadio] = useState('');
   const [allFoods, setAllFoods] = useState();
   const [allDrinks, setAllDrinks] = useState();
+  const [categories, setCategories] = useState([]);
 
   const valueObj = { stateEmail,
     setStateEmail,
@@ -25,6 +26,8 @@ function ProviderApp({ children }) {
     setAllFoods,
     allDrinks,
     setAllDrinks,
+    categories,
+    setCategories,
   };
 
   return (
