@@ -8,7 +8,6 @@ import SearchBar from './SearchBar';
 
 function Header(props) {
   const [searchBar, setSearchBar] = useState(false);
-  /* const [stateSearchBusca, setSearchBusca] = useStatefalse(false); */
   const history = useHistory();
 
   function userRedirectPage() {
@@ -19,18 +18,10 @@ function Header(props) {
     setSearchBar(!searchBar);
   }
 
-  // o requisito 7 resolvemos com ajuda de um colega e o problema
-  // era, a função não estava funcionando e desestruturamos dentro
-  // da const mesmo
-  /* function title() {
-    return <span data-testid="page-title">{props.title}</span>;
-  } */
-
   const { enableSearch, title } = props;
   return (
     <div>
       <h1 data-testid="page-title">{ title }</h1>
-      <SearchBar />
       <button type="button" onClick={ userRedirectPage }>
         <img src={ profileIcon } alt="profileIcon" data-testid="profile-top-btn" />
       </button>

@@ -3,32 +3,36 @@ import { useHistory } from 'react-router-dom';
 import ContextApp from '../context/ContextApp';
 
 function SearchBar() {
-// 1º escrever um ingrediente e escolher o radio ingredient
-// 2º clicar no botão Search
-// 3º o search irá selecionar a API correta
-// 4º Após a API correta ela será chamada com o termo da busca
   const history = useHistory();
   const {
     stateSearch,
     setStateSearch,
     stateRadio,
-    setStateRadio } = useContext(ContextApp);
+    setStateRadio,
+    stateIdMeal,
+    setStateIdMeal,
+    stateIdDrinks,
+    setIdDrinks,
+    data,
+    setData } = useContext(ContextApp);
+
+  // refatorando 1. separa chamada da api,
+  // 2. fazer a checagem do global alet antes de enviar pra api
+  // 3.possivel useeffect ao inves d usar outra função
+  // 4. atenção estado global e local 5.useeffect? constante vs função
+  // 5. constante usar ao inves d estado
 
   const getAPI = async (ingrediente, radio) => {
-    if (radio === 'f' && ingrediente.length > 1) {
-      global.alert('Your search must have only 1 (one) character');
-    } else {
-      const url = (radio === 'i' ? 'filter' : 'search');
-      const { pathname } = history.location;
-      const domain = (
-        pathname === '/drinks' ? 'thecocktaildb' : 'themealdb');
-      const endPointIngredient = `https://www.${domain}.com/api/json/v1/1/${url}.php?${radio}=${ingrediente}`;
-
-      const response = await fetch(endPointIngredient);
-      const results = await response.json();
-      return response.ok ? Promise.resolve(results)
-        : Promise.reject(results);
-    }
+    const url = (radio === 'i' ? 'filter' : 'search');
+    const { pathname } = history.location;
+    const domain = (
+      pathname === '/drinks' ? 'thecocktaildb' : 'themealdb');
+    const endPointIngredient = `https://www.${domain}.com/api/json/v1/1/${url}.php?${radio}=${ingrediente}`;
+    const response = await fetch(endPointIngredient);
+    const results = await response.json();
+    console.log(endPointIngredient);
+    return response.ok ? Promise.resolve(results)
+      : Promise.reject(results);
   };
   const handleInput = ({ target: { value } }) => {
     setStateSearch({
@@ -44,9 +48,39 @@ function SearchBar() {
     return id;
   };
 
-  const handleSubmitButton = (e) => {
+  const redirectToRecipe = async (apiResults) => {
+    const treatedApi = await apiResults;
+    const { pathname } = history.location;
+    setData({ ...data,
+      treatedApi,
+    });
+    if (pathname.includes('/foods')) {
+      if (!treatedApi) {
+        console.log('erro treatedAPI');
+      } else if (treatedApi.meals.length === 1) {
+        setStateIdMeal(...stateIdMeal,
+          treatedApi.meals[0].idMeal);
+        history.push(`/foods/${treatedApi.meals[0].idMeal}`);
+      }
+    } else if (pathname.includes('/drinks')) {
+      if (!treatedApi) {
+        console.log('erro treatedAPI');
+      } else if (treatedApi.drinks.length === 1) {
+        setIdDrinks(...stateIdDrinks,
+          treatedApi.drinks[0].idDrink);
+        history.push(`/drinks/${treatedApi.drinks[0].idDrink}`);
+      }
+    }
+  };
+
+  const handleSubmitButton = async (e) => {
     e.preventDefault();
-    getAPI(stateSearch.value, stateRadio.id);
+    if (stateSearch.value.length > 1 && stateRadio.id === 'f') {
+      global.alert('Your search must have only 1 (one) character');
+    } else {
+      const apiResults = await getAPI(stateSearch.value, stateRadio.id);
+      redirectToRecipe(apiResults);
+    }
   };
 
   return (
