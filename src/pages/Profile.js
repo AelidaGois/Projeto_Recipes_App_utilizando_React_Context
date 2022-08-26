@@ -23,7 +23,6 @@ function Profile() {
         <p data-testid="profile-email">{handleEmail()}</p>
         <button
           type="button"
-          name="Done Recipes"
           data-testid="profile-done-btn"
           onClick={ () => history.push('/done-recipes') }
         >
@@ -31,15 +30,13 @@ function Profile() {
         </button>
         <button
           type="button"
-          name="Favorite Recipes"
           data-testid="profile-favorite-btn"
           onClick={ () => history.push('/favorite-recipes') }
         >
-          Favorites Recipes
+          Favorite Recipes
         </button>
         <button
           type="button"
-          name="Logout"
           data-testid="profile-logout-btn"
           onClick={ cleanLocalStorage }
         >
