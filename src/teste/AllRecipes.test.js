@@ -1,20 +1,21 @@
 import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
-import { meals } from '../../cypress/mocks/meals';
-import { drinks } from '../../cypress/mocks/drinks';
-import { mealsCatogories } from '../../cypress/mocks/mealCategories';
-import { drinksCatogories } from '../../cypress/mocks/drinkCategories';
+import { act } from 'react-dom/test-utils';
+import meals from '../../cypress/mocks/meals';
+import drinks from '../../cypress/mocks/drinks';
+import mealsCatogories from '../../cypress/mocks/mealCategories';
+import drinksCatogories from '../../cypress/mocks/drinkCategories';
 import renderWithRouter from './utils/RenderWithRouter';
-
-import RecipesContext from '../context/ProviderApp';
+import RecipesProvider from '../context/ProviderApp';
+/* import RecipesContext from '../context/ProviderApp'; */
 
 import App from '../App';
 
 function mockFetch() {
   jest.spyOn(global, 'fetch').mockImplementation(async (url) => {
     if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=') {
-      return { json: async () => meals.meals };
+      return { json: async () => meals };
     }
     if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') {
       return { json: async () => drinks };
@@ -36,12 +37,18 @@ function mockFetch() {
 describe('Testes da página de Recipes', () => {
   it('Testa se renderiza alguma comida', async () => {
     mockFetch();
-    const { history } = await (waitFor (() => renderWithRouter(
-      <RecipesContext><App /></RecipesContext>,
+    const { history } = await (waitFor(() => renderWithRouter(
+      <RecipesProvider><App /></RecipesProvider>,
     )));
-    history.push('/foods');
-    screen.logTestingPlaygroundURL();
+    await act(async () => {
+      history.push('/foods');
+      /* renderWithRouter(<RecipesProvider><App /></RecipesProvider>); */
+    });
+    /* screen.logTestingPlaygroundURL(); */
 
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+    /* expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'); */
   });
 });
