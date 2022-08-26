@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header from '../components/Header';
-import AllRecipes from '../components/AllRecipes';
+import AllRecipes from '../components/Recipes';
 import CategoriasRecipes from '../components/CategoriesRecipes';
 import Footer from '../components/Footer';
 
