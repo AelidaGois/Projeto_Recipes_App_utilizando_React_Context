@@ -23,6 +23,8 @@ function DrinkCards() {
               data-testid={ `${index}-card-name` }
             >
               { drink.strDrink }
+              {/* if(allDrinks === true)
+              return drinks/{id-da-receita}; */}
             </p>
           </div>
         ))}

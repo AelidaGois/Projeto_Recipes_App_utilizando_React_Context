@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ContextRecipes } from '../context/ProviderApp';
 import fetchCategories,
 { fetchCategoriesFilter, fetchMealsAPI, fetchDrinksAPI } from '../services/RecipesApi';
+import AllRecipes from './Recipes';
 
 function CategoriasRecipes({ foodRecipes }) {
   const { categories, setCategories, setAllFoods, setAllDrinks } = ContextRecipes();
@@ -37,6 +38,7 @@ function CategoriasRecipes({ foodRecipes }) {
     if (allCategories) {
       const nome = allCategories[foodRecipes].map((category, index) => {
         if (index < maxNumberOfButtons) {
+          /* if (allCategories === true) { return AllRecipes || drinksApi; } */
           return (
             <button
               type="button"
@@ -53,7 +55,6 @@ function CategoriasRecipes({ foodRecipes }) {
       setCategories(nome);
     }
   }
-  //   console.log(foodRecipes);
   useEffect(() => {
     renderCategories();
   }, []);

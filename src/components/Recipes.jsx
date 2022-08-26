@@ -29,6 +29,15 @@ function AllRecipes({ title }) {
     // console.log(allFoods);
   }, []);
 
+  function filterToggle() {
+    setStateToggle(!stateToggle);
+  }
+
+    <button></button>
+    type="button" 
+    onClick={ filterToggle }
+    </button>
+
   return (
     <div>
       <h1>Receitas</h1>

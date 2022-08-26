@@ -23,6 +23,8 @@ function FoodCards() {
               data-testid={ `${index}-card-name` }
             >
               { food.strMeal }
+              {/* if(allFoods === true)
+              return foods/{id-da-receita}; */}
             </p>
           </div>
         ))}
