@@ -3,24 +3,16 @@ import PropTypes from 'prop-types';
 import { ContextRecipes } from '../context/ProviderApp';
 import fetchCategories,
 { fetchCategoriesFilter, fetchMealsAPI, fetchDrinksAPI } from '../services/RecipesApi';
-import AllRecipes from './Recipes';
+/* import AllRecipes from './Recipes'; */
 
+// No requisito 22 não foi possivel acessar o estado dentro da função handleButtonCategory,
+// então criei uma let toggle para simular o estado
+let toggle = 'testando';
 function CategoriasRecipes({ foodRecipes }) {
   const { categories, setCategories, setAllFoods, setAllDrinks } = ContextRecipes();
+  /* const [stateToggle, setStateToggle] = useState(''); */
 
   const maxNumberOfButtons = 5;
-
-  async function handleButtonCategory(category) {
-    if (foodRecipes === 'meals') {
-      const getFilterAPI = await fetchCategoriesFilter(category, foodRecipes);
-      setAllFoods(getFilterAPI);
-    }
-    if (foodRecipes === 'drinks') {
-      const getFilterAPI = await fetchCategoriesFilter(category, foodRecipes);
-      setAllDrinks(getFilterAPI);
-    }
-  }
-
   async function renderAllCategories() {
     if (foodRecipes === 'meals') {
       const foodsAPI = await fetchMealsAPI();
@@ -31,14 +23,33 @@ function CategoriasRecipes({ foodRecipes }) {
       setAllDrinks(drinksAPI);
     }
   }
-
+  async function handleButtonCategory(category) {
+    /* toggle = category; */
+    if (foodRecipes === 'meals') {
+      if (toggle === category) {
+        toggle = '';
+        return renderAllCategories();
+      }
+      toggle = category;
+      const getFilterAPI = await fetchCategoriesFilter(category, foodRecipes);
+      setAllFoods(getFilterAPI);
+    }
+    if (foodRecipes === 'drinks') {
+      if (toggle === category) {
+        toggle = '';
+        return renderAllCategories();
+      }
+      toggle = category;
+      const getFilterAPI = await fetchCategoriesFilter(category, foodRecipes);
+      setAllDrinks(getFilterAPI);
+    }
+  }
   async function renderCategories() {
     const allCategories = await fetchCategories(foodRecipes);
 
     if (allCategories) {
       const nome = allCategories[foodRecipes].map((category, index) => {
         if (index < maxNumberOfButtons) {
-          /* if (allCategories === true) { return AllRecipes || drinksApi; } */
           return (
             <button
               type="button"

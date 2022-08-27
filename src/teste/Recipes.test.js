@@ -1,6 +1,6 @@
 import React from 'react';
-import { waitFor } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
+import { screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import meals from '../../cypress/mocks/meals';
 import drinks from '../../cypress/mocks/drinks';
@@ -26,6 +26,7 @@ function mockFetch() {
     if (url === 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list') {
       return { json: async () => drinksCatogories };
     }
+    return { json: async () => mealsCatogories };
   });
 }
 
@@ -42,13 +43,23 @@ describe('Testes da página de Recipes', () => {
     )));
     await act(async () => {
       history.push('/foods');
-      /* renderWithRouter(<RecipesProvider><App /></RecipesProvider>); */
     });
-    /* screen.logTestingPlaygroundURL(); */
-
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
-    /* expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'); */
+    const beef = screen.getByRole('button', { name: /beef/i });
+    expect(beef).toBeInTheDocument();
+    await act(async () => {
+      userEvent.click(beef);
+    });
+    await act(async () => {
+      userEvent.click(beef);
+    });
+    const pageDrink = screen.getByRole('img', { name: /drink/i });
+    userEvent.click(pageDrink);
+    expect(history.location.pathname).toBe('/drinks');
+    /* const imgComida = screen.getByRole('img', { name: /corba/i });
+    expect(imgComida).toBeInTheDocument();
+    userEvent.click(imgComida); */
   });
 });

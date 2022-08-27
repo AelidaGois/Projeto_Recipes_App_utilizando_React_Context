@@ -10,8 +10,6 @@ function AllRecipes({ title }) {
   const {
     setAllFoods,
     setAllDrinks,
-    // allFoods,
-    // allDrinks,
   } = ContextRecipes();
 
   useEffect(() => {
@@ -27,26 +25,17 @@ function AllRecipes({ title }) {
     };
     getAllRecipes();
     // console.log(allFoods);
-  }, []);
-
-  function filterToggle() {
-    setStateToggle(!stateToggle);
-  }
-
-    <button></button>
-    type="button" 
-    onClick={ filterToggle }
-    </button>
-
+  }, [setAllDrinks, setAllFoods]);
   return (
+
     <div>
       <h1>Receitas</h1>
       <h2>{title}</h2>
-      {title === 'foods' ? <FoodCards /> : <DrinkCards />}
+      {title === 'foods' ? <FoodCards page={ title } /> : <DrinkCards page={ title } />}
     </div>
+
   );
 }
-
 AllRecipes.propTypes = {
   title: PropTypes.string,
 }.isRequires;

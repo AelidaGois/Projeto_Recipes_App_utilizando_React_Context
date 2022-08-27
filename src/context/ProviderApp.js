@@ -13,7 +13,7 @@ function ProviderApp({ children }) {
   const [allFoods, setAllFoods] = useState();
   const [allDrinks, setAllDrinks] = useState();
   const [categories, setCategories] = useState([]);
-  const [stateToggle, setStateToggle] = useState({ disable: true });
+  const [toggle, setToggle] = useState('');
 
   const valueObj = { stateEmail,
     setStateEmail,
@@ -29,8 +29,8 @@ function ProviderApp({ children }) {
     setAllDrinks,
     categories,
     setCategories,
-    stateToggle,
-    setStateToggle,
+    toggle,
+    setToggle,
   };
 
   return (
