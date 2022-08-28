@@ -9,7 +9,7 @@ import fetchCategories,
 let toggle = 'testando';
 function CategoriasRecipes({ foodRecipes }) {
   const { categories, setCategories, setAllFoods, setAllDrinks } = ContextRecipes();
-  /* const [stateToggle, setStateToggle] = useState(''); */
+  /* const [stateToggle, setStateToggle] = useState('') */
 
   const maxNumberOfButtons = 5;
   async function renderAllCategories() {
