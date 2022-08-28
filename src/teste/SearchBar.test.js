@@ -6,7 +6,7 @@ import ProviderApp from '../context/ProviderApp';
 import SearchBar from '../components/SearchBar';
 import oneMeal from '../../cypress/mocks/oneMeal';
 import App from '../App';
-import oneDrink from '../../cypress/mocks/oneDrink';
+import drinks from '../../cypress/mocks/drinks';
 
 describe('Testes da página de SearchBar', () => {
   const searchInput = 'search-input';
@@ -103,30 +103,18 @@ describe('Testes da página de SearchBar', () => {
     expect(foodPage).toBeInTheDocument();
   });
 
-  it.only('Testa se ao pesquisar uma bebida a página é redirecionada', async () => {
-    global.fetch = () => Promise.resolve({
-      status: 200,
-      ok: true,
-      json: () => Promise.resolve(oneDrink),
-    });
-
-    const { history } = renderWithRouter(<ProviderApp><App /></ProviderApp>);
-    history.push('/drinks');
-    const searchIcon = screen.getByTestId('search-top-btn');
-    userEvent.click(searchIcon);
-
-    const inputSearch = screen.getByTestId(searchInput);
-    userEvent.type(inputSearch, 'Aquamarine');
-
-    const radioName = screen.getByTestId(nameSearchRadio);
-    userEvent.click(radioName);
-
-    const buttonFiltrar = screen.getByTestId(execSearchBtn);
-    userEvent.click(buttonFiltrar);
-    history.push('/drinks/178319');
-    const { pathname } = history.location;
-    const foodPage = screen.getByText(/receitas de bebidas/i);
-    expect(pathname).toBe('/drinks/178319');
-    expect(foodPage).toBeInTheDocument();
-  });
-});
+//   it.only(`Testa senão encontrar uma receita de comida e/ou bebida apareça um alert`, () => {
+//     global.alert = jest.fn();
+//     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
+//     const exempleRecipe = drinks.strDrink;
+//     const message = `Sorry, we haven't found any recipes for these filters.`
+//     const inputSearch = screen.getByTestId(searchInput);
+//     const radio = screen.getByTestId(nameSearchRadio);
+//     const button = screen.getByTestId(execSearchBtn);
+//     userEvent.type(inputSearch, exempleRecipe);
+//     userEvent.click(radio);
+//     userEvent.click(button);
+    
+//     expect(global.alert).toHaveBeenCalled();
+// });
+})

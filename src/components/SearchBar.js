@@ -55,16 +55,18 @@ function SearchBar() {
       treatedApi,
     });
     if (pathname.includes('/foods')) {
-      if (!treatedApi) {
-        console.log('erro treatedAPI');
+      console.log(treatedApi.meals);
+      if (!treatedApi || treatedApi.meals === null) {
+        global.alert('Sorry, we haven\'t found any recipes for these filters.');
       } else if (treatedApi.meals.length === 1) {
         setStateIdMeal(...stateIdMeal,
           treatedApi.meals[0].idMeal);
         history.push(`/foods/${treatedApi.meals[0].idMeal}`);
       }
     } else if (pathname.includes('/drinks')) {
-      if (!treatedApi) {
-        console.log('erro treatedAPI');
+      console.log(treatedApi.drinks);
+      if (!treatedApi || treatedApi.drinks === null) {
+        global.alert('Sorry, we haven\'t found any recipes for these filters.');
       } else if (treatedApi.drinks.length === 1) {
         setIdDrinks(...stateIdDrinks,
           treatedApi.drinks[0].idDrink);
