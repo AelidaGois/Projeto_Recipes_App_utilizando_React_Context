@@ -4,19 +4,14 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from './utils/RenderWithRouter';
 import ProviderApp from '../context/ProviderApp';
 import SearchBar from '../components/SearchBar';
+import oneMeal from '../../cypress/mocks/oneMeal';
+import App from '../App';
+import oneDrink from '../../cypress/mocks/oneDrink';
 
 describe('Testes da página de SearchBar', () => {
-//   beforeEach(() => {
-//     jest.spyOn(global, 'fetch');
-//     global.fetch.mockResolvedValue({
-//       json: jest.fn().mockResolvedValue(meals),
-//     });
-//   });
-
-  //   afterEach(() => jest.resetAllMocks());
-
   const searchInput = 'search-input';
   const execSearchBtn = 'exec-search-btn';
+  const nameSearchRadio = 'name-search-radio';
 
   it('Testa se existe um input para busca', () => {
     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
@@ -54,7 +49,7 @@ describe('Testes da página de SearchBar', () => {
     const food = 'pão';
     // const url2 = 'https://www.themealdb.com/api/json/v1/1/search.php?s=pão';
     const inputSearch = screen.getByTestId(searchInput);
-    const radio = screen.getByTestId('name-search-radio');
+    const radio = screen.getByTestId(nameSearchRadio);
     const button = screen.getByTestId(execSearchBtn);
     userEvent.type(inputSearch, food);
     userEvent.click(radio);
@@ -79,5 +74,59 @@ describe('Testes da página de SearchBar', () => {
     userEvent.click(radio);
     userEvent.click(button);
     expect(global.alert).toHaveBeenCalled();
+  });
+
+  it('Testa se ao pesquisar uma comida a página é redirecionada', async () => {
+    global.fetch = () => Promise.resolve({
+      status: 200,
+      ok: true,
+      json: () => Promise.resolve(oneMeal),
+    });
+
+    const { history } = renderWithRouter(<ProviderApp><App /></ProviderApp>);
+    history.push('/foods');
+    const searchIcon = screen.getByTestId('search-top-btn');
+    userEvent.click(searchIcon);
+
+    const inputSearch = screen.getByTestId(searchInput);
+    userEvent.type(inputSearch, 'Arrabiata');
+
+    const radioName = screen.getByTestId(nameSearchRadio);
+    userEvent.click(radioName);
+
+    const buttonFiltrar = screen.getByTestId(execSearchBtn);
+    userEvent.click(buttonFiltrar);
+    history.push('/foods/52771');
+    const { pathname } = history.location;
+    const foodPage = screen.getByText(/receitas/i);
+    expect(pathname).toBe('/foods/52771');
+    expect(foodPage).toBeInTheDocument();
+  });
+
+  it.only('Testa se ao pesquisar uma bebida a página é redirecionada', async () => {
+    global.fetch = () => Promise.resolve({
+      status: 200,
+      ok: true,
+      json: () => Promise.resolve(oneDrink),
+    });
+
+    const { history } = renderWithRouter(<ProviderApp><App /></ProviderApp>);
+    history.push('/drinks');
+    const searchIcon = screen.getByTestId('search-top-btn');
+    userEvent.click(searchIcon);
+
+    const inputSearch = screen.getByTestId(searchInput);
+    userEvent.type(inputSearch, 'Aquamarine');
+
+    const radioName = screen.getByTestId(nameSearchRadio);
+    userEvent.click(radioName);
+
+    const buttonFiltrar = screen.getByTestId(execSearchBtn);
+    userEvent.click(buttonFiltrar);
+    history.push('/drinks/178319');
+    const { pathname } = history.location;
+    const foodPage = screen.getByText(/receitas de bebidas/i);
+    expect(pathname).toBe('/drinks/178319');
+    expect(foodPage).toBeInTheDocument();
   });
 });
