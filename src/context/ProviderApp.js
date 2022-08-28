@@ -18,7 +18,6 @@ function ProviderApp({ children }) {
   const [stateIdDrinks, setIdDrinks] = useState('');
   const [data, setData] = useState({});
 
-
   const valueObj = { stateEmail,
     setStateEmail,
     statePassword,
