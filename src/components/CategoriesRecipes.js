@@ -68,7 +68,7 @@ function CategoriasRecipes({ foodRecipes }) {
   }
   useEffect(() => {
     renderCategories();
-  });
+  }, []);
 
   return (
     <div>
