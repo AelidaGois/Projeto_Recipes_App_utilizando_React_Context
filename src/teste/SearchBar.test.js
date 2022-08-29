@@ -6,7 +6,7 @@ import ProviderApp from '../context/ProviderApp';
 import SearchBar from '../components/SearchBar';
 import oneMeal from '../../cypress/mocks/oneMeal';
 import App from '../App';
-import drinks from '../../cypress/mocks/drinks';
+// import drinks from '../../cypress/mocks/drinks';
 
 describe('Testes da página de SearchBar', () => {
   const searchInput = 'search-input';
@@ -103,18 +103,18 @@ describe('Testes da página de SearchBar', () => {
     expect(foodPage).toBeInTheDocument();
   });
 
-//   it.only(`Testa senão encontrar uma receita de comida e/ou bebida apareça um alert`, () => {
-//     global.alert = jest.fn();
-//     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
-//     const exempleRecipe = drinks.strDrink;
-//     const message = `Sorry, we haven't found any recipes for these filters.`
-//     const inputSearch = screen.getByTestId(searchInput);
-//     const radio = screen.getByTestId(nameSearchRadio);
-//     const button = screen.getByTestId(execSearchBtn);
-//     userEvent.type(inputSearch, exempleRecipe);
-//     userEvent.click(radio);
-//     userEvent.click(button);
-    
+  //   it.only(`Testa senão encontrar uma receita de comida e/ou bebida apareça um alert`, () => {
+  //     global.alert = jest.fn();
+  //     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
+  //     const exempleRecipe = drinks.strDrink;
+  //     const message = `Sorry, we haven't found any recipes for these filters.`
+  //     const inputSearch = screen.getByTestId(searchInput);
+  //     const radio = screen.getByTestId(nameSearchRadio);
+  //     const button = screen.getByTestId(execSearchBtn);
+  //     userEvent.type(inputSearch, exempleRecipe);
+  //     userEvent.click(radio);
+  //     userEvent.click(button);
+
 //     expect(global.alert).toHaveBeenCalled();
 // });
-})
+});
