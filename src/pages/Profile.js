@@ -8,7 +8,7 @@ function Profile() {
 
   function handleEmail() {
     const email = JSON.parse(localStorage.getItem('user'));
-    return email.email;
+    return email;
   }
 
   function cleanLocalStorage() {
