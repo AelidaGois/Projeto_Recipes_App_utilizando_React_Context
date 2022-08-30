@@ -103,7 +103,7 @@ describe('Testes da página de SearchBar', () => {
     expect(foodPage).toBeInTheDocument();
   });
 
-  it.only('Testa se ao pesquisar uma bebida a página é redirecionada', async () => {
+  it('Testa se ao pesquisar uma bebida a página é redirecionada', async () => {
     global.fetch = () => Promise.resolve({
       status: 200,
       ok: true,
