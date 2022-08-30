@@ -17,6 +17,8 @@ import App from '../App';
   });
 }); */
 
+const searchTop = 'search-top-btn';
+
 describe('Teste componente Header', () => {
   it('Teste se a pagina está renderizando e redirecionando', () => {
     const { history } = renderWithRouter(<App />);
@@ -40,12 +42,25 @@ describe('Teste componente Header', () => {
   it('Teste a função de esconder e mostrar a barra de busca', () => {
     const { history } = renderWithRouter(<App />);
     history.push('/foods');
-    const renderizandoButton = screen.getByTestId('search-top-btn');
+    const renderizandoButton = screen.getByTestId(searchTop);
     expect(renderizandoButton).toBeInTheDocument();
     fireEvent.click(renderizandoButton);
-    const renderizaInput = screen.getByTestId('search-top-btn');
+    const renderizaInput = screen.getByTestId(searchTop);
     expect(renderizaInput).toBeInTheDocument();
     fireEvent.click(renderizaInput);
     expect(renderizaInput).toBeInTheDocument();
+  });
+
+  it('Testa se o botão Entrar direciona o usuário para a página "/foods"', () => {
+    const { history } = renderWithRouter(<Header />);
+    const buttonIconProfile = screen.getByTestId('profile-top-btn');
+    // const buttonTopBtn = screen.getByTestId(searchTop);
+
+    userEvent.click(buttonIconProfile);
+    // userEvent.click(buttonTopBtn);
+    // expect(buttonProfile).toBeInTheDocument();
+    const { pathname } = history.location;
+    expect(pathname).toBe('/profile');
+    expect(buttonIconProfile).toBeInTheDocument();
   });
 });
