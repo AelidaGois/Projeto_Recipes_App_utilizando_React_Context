@@ -17,9 +17,6 @@ function ProviderApp({ children }) {
   const [stateIdMeal, setStateIdMeal] = useState('');
   const [stateIdDrinks, setIdDrinks] = useState('');
   const [data, setData] = useState({});
-  // const [favoriteFoods, setFavoriteFoods] = useState([]);
-  // const [filter, setFilter] = useState('all');
-  // const [copiedLink, setCopiedLink] = useState('');
 
   const valueObj = { stateEmail,
     setStateEmail,
@@ -43,12 +40,6 @@ function ProviderApp({ children }) {
     setIdDrinks,
     data,
     setData,
-    // favoriteRecipes,
-    // setfavoriteRecipes,
-    // filter,
-    // setFilter,
-    // copiedLink,
-    // setCopiedLink,
   };
 
   return (
