@@ -47,11 +47,10 @@ export const foodsDrinksDetails = async (url) => {
 };
 
 export const fetchCategories = async (foodRecipes) => {
-  if (foodRecipes === 'meals') return fetchCatoriesFoodsAPI();
-  const fetchCategories = async (foodRecipes) => {
-    if (foodRecipes === 'meals') return fetchCategoriesFoodsAPI();
-    return fetchCatoriesDrinksAPI();
-  };
+  if (foodRecipes === 'meals') return fetchCategoriesFoodsAPI();
+  // const fetchCategories2 = async (foodRecipes) => {
+
+  return fetchCatoriesDrinksAPI();
+};
 
 /* export default fetchCategories; */
-};

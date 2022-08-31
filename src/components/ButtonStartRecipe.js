@@ -19,7 +19,7 @@ function ButtonStartRecipe(props) {
       name="buttonRecipeDetails"
       onClick={ redirect }
     >
-      Star Recipe
+      Start Recipe
     </button>
   );
 }
