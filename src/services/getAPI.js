@@ -10,6 +10,7 @@ export const getAPI = async (ingrediente, radio, pathname) => {
   return response.ok ? Promise.resolve(results)
     : Promise.reject(results);
 };
+
 export const getAPIById = async (type, id) => {
   const ENDPOINT = `https://www.the${domainSource(
     type,
