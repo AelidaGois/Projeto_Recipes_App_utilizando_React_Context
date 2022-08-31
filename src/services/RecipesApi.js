@@ -38,9 +38,17 @@ export async function fetchCategoriesFilter(filter, type) {
   }
 }
 
-const fetchCategories = async (foodRecipes) => {
+export const foodsDrinksDetails = async (url) => {
+  const data = await fetch(url);
+  const response = await data.json();
+  if (url.includes('cocktail')) {
+    return response.drinks[0];
+  } return response.meals[0];
+};
+
+export const fetchCategories = async (foodRecipes) => {
   if (foodRecipes === 'meals') return fetchCatoriesFoodsAPI();
   return fetchCatoriesDrinksAPI();
 };
 
-export default fetchCategories;
+/* export default fetchCategories; */

@@ -1,9 +1,9 @@
-import React from 'react';
+// import React from 'react';
 
-function DrinksInProgress() {
-  return (
-    <div>Bebidas...</div>
-  );
-}
+// function DrinksInProgress() {
+//   return (
+//     <div>Bebidas...</div>
+//   );
+// }
 
-export default DrinksInProgress;
+// export default DrinksInProgress;

@@ -1,21 +1,11 @@
 import React from 'react';
+/* import { useHistory } from 'react-router-dom'; */
+/* import ButtonStartRecipe from '../components/ButtonStartRecipe'; */
 
 function RecipeDetails() {
-  const onClickRecipeDetails = () => {
-
-  };
   return (
     <div>
-      <p>Tela de Detalhes da Receita</p>
-      <button
-        type="submit"
-        data-testid="start-recipe-btn"
-        name="buttonRecipeDetails"
-        onClick={ onClickRecipeDetails }
-      >
-        Star Recipe
-      </button>
-
+      {/* <ButtonStartRecipe id="52977" page="foods" /> */}
     </div>
   );
 }

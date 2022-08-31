@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import ContextApp from '../context/ContextApp';
+import ButtonStartRecipe from '../components/ButtonStartRecipe';
 
 function FoodRecipes() {
   const {
@@ -17,7 +18,7 @@ function FoodRecipes() {
         <li>aaa</li>
       </ul>
       <p>aaa</p>
-
+      <ButtonStartRecipe id="52977" page="foods" />
     </div>
   );
 }
