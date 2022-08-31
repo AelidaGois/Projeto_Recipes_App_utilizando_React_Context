@@ -103,7 +103,7 @@ describe('Testes da página de SearchBar', () => {
     expect(foodPage).toBeInTheDocument();
   });
 
-  it.only(`Testa senão encontrar 
+  it(`Testa senão encontrar 
   uma receita de comida e/ou bebida apareça um alert`, () => {
     global.alert = jest.fn();
     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
