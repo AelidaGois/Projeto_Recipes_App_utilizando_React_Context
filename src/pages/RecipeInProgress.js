@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Ingredient from '../components/Ingredient';
 import { foodsDrinksDetails } from '../services/RecipesApi';
 
 function RecipeInProgress() {
@@ -50,9 +51,9 @@ function RecipeInProgress() {
       >
         { strCategory }
       </p>
-      {/* <p
-        data-testid={ `${index}-ingredient-step` }
-      /> */}
+      <Ingredient
+        stateRecipe={ stateRecipe }
+      />
       {/* //chamar um componente */}
       <div data-testid="instructions" />
       <button
