@@ -13,14 +13,13 @@ import './css/Footer.css';
 import './css/ButtonStartRecipe.css';
 import RecipeInProgress from './pages/RecipeInProgress';
 
-
 function App() {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route path="/foods/:foodId/in-progress" component={ RecipeInProgress } />
-        <Route path="/drinks/:recipeId/in-progress" component={ RecipeInProgress} />
+        <Route path="/drinks/:recipeId/in-progress" component={ RecipeInProgress } />
         <Route path="/foods/:recipeId" component={ FoodRecipes } />
         <Route path="/drinks/:recipeId" component={ DrinkRecipes } />
         <Route path="/foods" component={ Foods } />
