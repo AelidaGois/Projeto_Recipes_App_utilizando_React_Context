@@ -9,9 +9,8 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import FoodsInProgress from './pages/FoodsInProgress';
 import DrinksInProgress from './pages/DrinksInProgress';
-import FoodRecipes from './pages/FoodRecipes';
-import DrinkRecipes from './pages/DrinkRecipes';
 import './css/Footer.css';
+import RecipeDetails from './pages/RecipeDetails';
 
 function App() {
   return (
@@ -20,8 +19,8 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route path="/foods/:foodId/in-progress" component={ FoodsInProgress } />
         <Route path="/drinks/:recipeId/in-progress" component={ DrinksInProgress } />
-        <Route path="/foods/:recipeId" component={ FoodRecipes } />
-        <Route path="/drinks/:recipeId" component={ DrinkRecipes } />
+        <Route path="/foods/:recipeId" component={ RecipeDetails } />
+        <Route path="/drinks/:recipeId" component={ RecipeDetails } />
         <Route path="/foods" component={ Foods } />
         <Route path="/drinks" component={ Drinks } />
         <Route path="/profile" component={ Profile } />

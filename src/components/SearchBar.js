@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import ContextApp from '../context/ContextApp';
+import { getAPI } from '../services/getAPI';
 
 function SearchBar() {
   const history = useHistory();
+  const { pathname } = history.location;
   const {
     stateSearch,
     setStateSearch,
@@ -15,14 +17,14 @@ function SearchBar() {
     setIdDrinks,
     data,
     setData } = useContext(ContextApp);
-
+  console.log(data);
   // refatorando 1. separa chamada da api,
   // 2. fazer a checagem do global alet antes de enviar pra api
   // 3.possivel useeffect ao inves d usar outra função
   // 4. atenção estado global e local 5.useeffect? constante vs função
   // 5. constante usar ao inves d estado
 
-  const getAPI = async (ingrediente, radio) => {
+  /* const getAPI = async (ingrediente, radio) => {
     const url = (radio === 'i' ? 'filter' : 'search');
     const { pathname } = history.location;
     const domain = (
@@ -30,10 +32,9 @@ function SearchBar() {
     const endPointIngredient = `https://www.${domain}.com/api/json/v1/1/${url}.php?${radio}=${ingrediente}`;
     const response = await fetch(endPointIngredient);
     const results = await response.json();
-    console.log(endPointIngredient);
     return response.ok ? Promise.resolve(results)
       : Promise.reject(results);
-  };
+  }; */
   const handleInput = ({ target: { value } }) => {
     setStateSearch({
       ...stateSearch, value,
@@ -50,7 +51,6 @@ function SearchBar() {
 
   const redirectToRecipe = async (apiResults) => {
     const treatedApi = await apiResults;
-    const { pathname } = history.location;
     setData({ ...data,
       treatedApi,
     });
@@ -78,7 +78,7 @@ function SearchBar() {
     if (stateSearch.value.length > 1 && stateRadio.id === 'f') {
       global.alert('Your search must have only 1 (one) character');
     } else {
-      const apiResults = await getAPI(stateSearch.value, stateRadio.id);
+      const apiResults = await getAPI(stateSearch.value, stateRadio.id, pathname);
       redirectToRecipe(apiResults);
     }
   };
