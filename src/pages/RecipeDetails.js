@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import ButtonStartRecipe from '../components/ButtonStartRecipe';
 import { getAPIById } from '../services/getAPI';
 
 function RecipeDetails() {
   const { pathname } = useLocation();
-
+  const params = useParams();
   const domainID = (pathname
     .includes('/foods') ? pathname
       .replace('/foods/', '') : pathname
@@ -27,23 +28,10 @@ function RecipeDetails() {
   // everything in here runs when app renders
   // inside array = when array value changes useEffect runs
   });
-  const onClickRecipeDetails = () => {};
+
   return (
     <div>
-      <p>
-        teste do hook url
-        {pathname.replace('/foods/', '')}
-      </p>
-      <p>Tela de Detalhes da Receita</p>
-      <button
-        type="submit"
-        data-testid="start-recipe-btn"
-        name="buttonRecipeDetails"
-        onClick={ onClickRecipeDetails }
-      >
-        Start Recipe
-      </button>
-
+      <ButtonStartRecipe id={ params.recipeId } page={ pathname.split('/')[1] } />
     </div>
   );
 }
