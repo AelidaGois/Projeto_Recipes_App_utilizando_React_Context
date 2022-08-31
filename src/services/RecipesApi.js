@@ -13,7 +13,7 @@ export async function fetchMealsAPI() {
 // TENTATIVA FINAL //
 // AJUDA DO THIAGO QUADROS //
 
-export async function fetchCatoriesFoodsAPI() {
+export async function fetchCategoriesFoodsAPI() {
   const data = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
   const response = data.json();
   return response;
@@ -48,7 +48,10 @@ export const foodsDrinksDetails = async (url) => {
 
 export const fetchCategories = async (foodRecipes) => {
   if (foodRecipes === 'meals') return fetchCatoriesFoodsAPI();
-  return fetchCatoriesDrinksAPI();
-};
+  const fetchCategories = async (foodRecipes) => {
+    if (foodRecipes === 'meals') return fetchCategoriesFoodsAPI();
+    return fetchCatoriesDrinksAPI();
+  };
 
 /* export default fetchCategories; */
+};

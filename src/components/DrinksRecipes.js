@@ -3,15 +3,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ContextRecipes } from '../context/ProviderApp';
 
-function DrinkCards(props) {
+function DrinksRecipes(props) {
   const cardsMaxNumber = 12;
   const { allDrinks } = ContextRecipes();
-  console.log(allDrinks);
-
+  console.log(allDrinks.drinks.strInstructions);
   const { page } = props;
   return (
     <div>
-      { allDrinks && allDrinks.drinks
+      { allDrinks && allDrinks.drinks.strInstructions
         .filter((non, index) => index < cardsMaxNumber).map((drink, index) => (
           <Link to={ `/${page}/${drink.idDrink}` } key={ index }>
             <div
@@ -26,7 +25,7 @@ function DrinkCards(props) {
               <p
                 data-testid={ `${index}-card-name` }
               >
-                { drink.strDrink }
+                { drink.strInstructions }
               </p>
             </div>
           </Link>
@@ -35,8 +34,8 @@ function DrinkCards(props) {
   );
 }
 
-DrinkCards.propTypes = {
+DrinksRecipes.propTypes = {
   page: PropTypes.string,
 }.isRequired;
 
-export default DrinkCards;
+export default DrinksRecipes;
