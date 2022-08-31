@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from './utils/RenderWithRouter';
 
 import App from '../App';
+import ProviderApp from '../context/ProviderApp';
 
 function urlLink(url, history) {
   expect(history.location).toBe(`/${url}`);
@@ -15,7 +16,7 @@ function urlLink(url, history) {
 
 describe('Teste da página "Profile"', () => {
   it('Teste de botão "done-recipes"', () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouter(<ProviderApp><App /></ProviderApp>);
     const emailInput = 'teste@email.com';
     const Email = screen.getByLabelText('Email');
     const password = screen.getByLabelText('Senha');
@@ -33,7 +34,7 @@ describe('Teste da página "Profile"', () => {
   });
 
   it('Teste de botão "favorite-recipes"', () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouter(<ProviderApp><App /></ProviderApp>);
     const emailInput = 'teste@teste.com';
     const email = screen.getByTestId('email-input');
     const senha = screen.getByTestId('password-input');
@@ -51,7 +52,7 @@ describe('Teste da página "Profile"', () => {
   });
 
   it('Teste de botão "logout"', () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouter(<ProviderApp><App /></ProviderApp>);
     const emailInput = 'teste@teste.com';
     const email = screen.getByTestId('email-input');
     const senha = screen.getByTestId('password-input');
