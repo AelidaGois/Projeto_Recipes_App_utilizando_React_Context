@@ -7,7 +7,7 @@ function Profile() {
   const history = useHistory();
 
   function handleEmail() {
-    const { email } = JSON.parse(localStorage.getItem('user'));
+    const { email } = JSON.parse(localStorage.getItem('user')) || {};
     console.log(email);
     return email;
   }
