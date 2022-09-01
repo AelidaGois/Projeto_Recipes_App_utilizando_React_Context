@@ -10,9 +10,7 @@ function urlLink(url, history) {
   expect(history.location.pathname).toBe(`${url}`);
 }
 
-// const emailInput = 'teste@teste.com';
-// const email = screen.getByTestId('email-input');
-// const senha = screen.getByTestId('password-input');
+
 
 describe('Teste da página "Profile"', () => {
   it('Teste de botão "done-recipes"', () => {
