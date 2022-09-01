@@ -10,8 +10,6 @@ function urlLink(url, history) {
   expect(history.location.pathname).toBe(`${url}`);
 }
 
-
-
 describe('Teste da página "Profile"', () => {
   it('Teste de botão "done-recipes"', () => {
     const { history } = renderWithRouter(<ProviderApp><App /></ProviderApp>);
