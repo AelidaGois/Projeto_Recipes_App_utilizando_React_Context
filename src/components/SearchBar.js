@@ -28,11 +28,13 @@ function SearchBar() {
     const domain = (
       pathname === '/drinks' ? 'thecocktaildb' : 'themealdb');
     const endPointIngredient = `https://www.${domain}.com/api/json/v1/1/${url}.php?${radio}=${ingrediente}`;
-    const response = await fetch(endPointIngredient);
-    const results = await response.json();
-    console.log(endPointIngredient);
-    return response.ok ? Promise.resolve(results)
-      : Promise.reject(results);
+    try {
+      const response = await fetch(endPointIngredient);
+      const results = await response.json();
+      return results;
+    } catch (error) {
+      return error;
+    }
   };
   const handleInput = ({ target: { value } }) => {
     setStateSearch({
@@ -54,24 +56,24 @@ function SearchBar() {
     setData({ ...data,
       treatedApi,
     });
-    console.log(treatedApi);
     if (pathname.includes('/foods')) {
-      console.log(treatedApi.meals);
+      // console.log(treatedApi.meals);
       if (!treatedApi || treatedApi.meals === null) {
-        global.alert('Sorry, we haven\'t found any recipes for these filters.');
-      } else if (treatedApi.meals.length === 1) {
+        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
+      if (treatedApi.meals.length === 1) {
         setStateIdMeal(...stateIdMeal,
           treatedApi.meals[0].idMeal);
-        history.push(`/foods/${treatedApi.meals[0].idMeal}`);
+        return history.push(`/foods/${treatedApi.meals[0].idMeal}`);
       }
-    } else if (pathname.includes('/drinks')) {
-      console.log(treatedApi.drinks);
+    } else {
       if (!treatedApi || treatedApi.drinks === null) {
-        global.alert('Sorry, we haven\'t found any recipes for these filters.');
-      } else if (treatedApi.drinks.length === 1) {
+        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
+      if (treatedApi.drinks.length === 1) {
         setIdDrinks(...stateIdDrinks,
           treatedApi.drinks[0].idDrink);
-        history.push(`/drinks/${treatedApi.drinks[0].idDrink}`);
+        return history.push(`/drinks/${treatedApi.drinks[0].idDrink}`);
       }
     }
   };
@@ -81,6 +83,7 @@ function SearchBar() {
     if (stateSearch.value.length > 1 && stateRadio.id === 'f') {
       global.alert('Your search must have only 1 (one) character');
     } else {
+      console.log(stateRadio.id);
       const apiResults = await getAPI(stateSearch.value, stateRadio.id);
       redirectToRecipe(apiResults);
     }
@@ -130,7 +133,7 @@ function SearchBar() {
         </label>
         <button
           data-testid="exec-search-btn"
-          type="submit"
+          type="button"
           onClick={ handleSubmitButton }
         >
           search
