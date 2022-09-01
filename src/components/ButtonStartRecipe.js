@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import '../css/ButtonStartRecipe.css';
 
 function ButtonStartRecipe(props) {
   const history = useHistory();
@@ -18,7 +19,7 @@ function ButtonStartRecipe(props) {
       name="buttonRecipeDetails"
       onClick={ redirect }
     >
-      Star Recipe
+      Start Recipe
     </button>
   );
 }
