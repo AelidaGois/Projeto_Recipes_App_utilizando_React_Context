@@ -6,22 +6,27 @@ function RecipeInProgress() {
   const [stateRecipe, setStateRecipe] = useState({});
   const { pathname } = document.location; // pega o pathname que contem a url no document.location
   const { strDrinkThumb, strMealThumb, strMeal, strDrink, strCategory } = stateRecipe;
+  const split = pathname.split('/');
   const chamaApi = async () => {
-    const split = pathname.split('/');
     const url = `https://www.the${split[1] === 'foods' ? 'meal' : 'cocktail'}db.com/api/json/v1/1/lookup.php?i=${split[2]}`;
     const apiResponse = await foodsDrinksDetails(url);
     setStateRecipe(apiResponse);
-
+    /* const checkedInFavorite = () => (stateFavorite ? 'favorite-btn' : 'favorite-btn');
+    setStateFavorite(); */
     // https://www.themealdb.com/api/json/v1/1/lookup.php?i={id-da-receita}
     // https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={id-da-receita}
   };
 
-  console.log(stateRecipe);
+  /* console.log(stateRecipe); */
   // DidMount
   useEffect(() => {
     chamaApi();
   }, []);
-
+  /*
+  buttonCompartilhar (event, 'Link copied!' ) {
+ event.preventDefault();
+ window.open(link do botão)
+  } */
   return (
 
     <div>
@@ -42,6 +47,7 @@ function RecipeInProgress() {
       <button
         type="button"
         data-testid="favorite-btn"
+        /* onClick={ checkedInFavorite } */
       >
         Favorite
       </button>
@@ -53,6 +59,8 @@ function RecipeInProgress() {
       <Ingredient
         stateRecipe={ stateRecipe }
         checked
+        pageName={ split[1] }
+        id={ split[2] }
       />
       {/* //chamar um componente */}
       <div data-testid="instructions" />
