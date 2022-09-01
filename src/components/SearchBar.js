@@ -54,6 +54,7 @@ function SearchBar() {
     setData({ ...data,
       treatedApi,
     });
+    console.log(treatedApi);
     if (pathname.includes('/foods')) {
       console.log(treatedApi.meals);
       if (!treatedApi || treatedApi.meals === null) {

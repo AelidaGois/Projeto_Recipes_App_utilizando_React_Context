@@ -8,65 +8,37 @@ import mealsCatogories from '../../cypress/mocks/mealCategories';
 import drinksCatogories from '../../cypress/mocks/drinkCategories';
 import renderWithRouter from './utils/RenderWithRouter';
 import RecipesProvider from '../context/ProviderApp';
-/* import RecipesContext from '../context/ProviderApp'; */
-
+import AllRecipes from '../components/Recipes';
 import App from '../App';
-
-// function mockFetch() {
-//   jest.spyOn(global, 'fetch').mockImplementation(async (url) => {
-//     if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=') {
-//       return { json: async () => meals };
-//     }
-//     if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') {
-//       return { json: async () => drinks };
-//     }
-//     if (url === 'https://www.themealdb.com/api/json/v1/1/list.php?c=list') {
-//       return { json: async () => mealsCatogories };
-//     }
-//     if (url === 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list') {
-//       return { json: async () => drinksCatogories };
-//     }
-//     return { json: async () => mealsCatogories };
-//   });
-// }
-
-// function renderFoods() {
-//   const { history } = renderWithRouter(<App />);
-//   history.push('/foods');
-// }
+import mealCategories from '../../cypress/mocks/mealCategories';
 
 describe('Testes da página de Recipes', () => {
-  jest.spyOn(global, 'fetch');
-  global.fetch.mockResolvedValue({
-    json: jest.fn().mockResolvedValue(meals),
-  });
   it('Testa se renderiza alguma comida', async () => {
-    // mockFetch();
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(meals),
+    });
 
-    const { history } = renderWithRouter(<RecipesProvider><App /></RecipesProvider>);
-    // await (waitFor(() => renderWithRouter(
-    //   <RecipesProvider><App /></RecipesProvider>,
-    // )));
-    // await act(async () => {
+    const { history } = renderWithRouter(<RecipesProvider><AllRecipes title="foods" /></RecipesProvider>);
+    
     history.push('/foods');
-    // });
-    // expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-    // expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-    // expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     await waitFor(() => expect(fetch).toHaveBeenCalled());
-    // const beef = screen.getByRole('button', { name: /beef/i });
-    // expect(beef).toBeInTheDocument();
-    // await act(async () => {
-    //   userEvent.click(beef);
-    // });
-    // await act(async () => {
-    //   userEvent.click(beef);
-    // });
-    // const pageDrink = screen.getByRole('img', { name: /drink/i });
-    // userEvent.click(pageDrink);
-    // expect(history.location.pathname).toBe('/drinks');
-    /* const imgComida = screen.getByRole('img', { name: /corba/i });
-    expect(imgComida).toBeInTheDocument();
-    userEvent.click(imgComida); */
+    const corba = screen.getByText(/Corba/i);
+    expect(corba).toBeInTheDocument();
+    
+  });
+  it('Testa se renderiza alguma bebida', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(drinks),
+    });
+  
+    const { history } = renderWithRouter(<RecipesProvider><AllRecipes title="drinks" /></RecipesProvider>);
+    
+    history.push('/drinks');
+    await waitFor(() => expect(fetch).toHaveBeenCalled());
+    const corba = screen.getByText(/Adam/i);
+    expect(corba).toBeInTheDocument();
+    
   });
 });

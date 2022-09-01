@@ -1,13 +1,18 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './utils/RenderWithRouter';
 import ProviderApp from '../context/ProviderApp';
 import SearchBar from '../components/SearchBar';
 import oneMeal from '../../cypress/mocks/oneMeal';
 import App from '../App';
-// import drinks from '../../cypress/mocks/drinks';
+import RecipesProvider from '../context/ProviderApp';
+import Header from '../components/Header';
 
+const mockAlert = () => {
+  jest.spyOn(global, 'alert');
+  global.alert = jest.fn();
+}
 describe('Testes da página de SearchBar', () => {
   const searchInput = 'search-input';
   const execSearchBtn = 'exec-search-btn';
@@ -29,37 +34,27 @@ describe('Testes da página de SearchBar', () => {
   it('Testa se é chamada a API', () => {
     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
     const food = 'arroz';
-    // const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=arroz';
     const inputSearch = screen.getByTestId(searchInput);
     const radio = screen.getByTestId('ingredient-search-radio');
     const button = screen.getByTestId(execSearchBtn);
     userEvent.type(inputSearch, food);
     userEvent.click(radio);
-    // jest.resetAllMocks();
-    // jest.spyOn(global, 'fetch');
-    // global.fetch.mockResolvedValue({
-    //   json: jest.fn().mockResolvedValue(japaneseMeals),
-    // });
     userEvent.click(button);
-    // expect(() => fetch).toHaveBeenCalledWith(url);
+   
   });
 
   it('Testa se ao clicar no radio button `name` a API correta é chamada', () => {
     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
     const food = 'pão';
-    // const url2 = 'https://www.themealdb.com/api/json/v1/1/search.php?s=pão';
+
     const inputSearch = screen.getByTestId(searchInput);
     const radio = screen.getByTestId(nameSearchRadio);
     const button = screen.getByTestId(execSearchBtn);
     userEvent.type(inputSearch, food);
     userEvent.click(radio);
-    // jest.resetAllMocks();
-    // jest.spyOn(global, 'fetch');
-    // global.fetch.mockResolvedValue({
-    //   json: jest.fn().mockResolvedValue(japaneseMeals),
-    // });
+  
     userEvent.click(button);
-    // expect(() => fetch).toHaveBeenCalledWith(url2);
+   
   });
 
   it(`Testa se ao clicar no radio 
@@ -102,18 +97,19 @@ describe('Testes da página de SearchBar', () => {
     expect(pathname).toBe('/foods/52771');
     expect(foodPage).toBeInTheDocument();
   });
-
   it(`Testa senão encontrar 
-  uma receita de comida e/ou bebida apareça um alert`, () => {
-    global.alert = jest.fn();
-    renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
+  uma receita de comida e/ou bebida apareça um alert`, async() => {
+    jest.resetAllMocks();
+    mockAlert();
+    renderWithRouter(<RecipesProvider><SearchBar /></RecipesProvider>);
     const exempleRecipe = 'asdfdfdf';
     const inputSearch = screen.getByTestId(searchInput);
-    const radio = screen.getByTestId(nameSearchRadio);
+    const radio = screen.getByTestId('ingredient-search-radio');
     const button = screen.getByTestId(execSearchBtn);
     userEvent.type(inputSearch, exempleRecipe);
     userEvent.click(radio);
     userEvent.click(button);
+    // await waitFor(() => expect(global.alert).toHaveBeenCalled());
 
     expect(global.alert).toHaveBeenCalled();
   });

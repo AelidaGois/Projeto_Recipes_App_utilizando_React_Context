@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ContextRecipes } from '../context/ProviderApp';
-import fetchCategories,
-{ fetchCategoriesFilter, fetchMealsAPI, fetchDrinksAPI } from '../services/RecipesApi';
+import {
+  fetchCategories,
+  fetchCategoriesFilter, fetchMealsAPI, fetchDrinksAPI } from '../services/RecipesApi';
 /* import AllRecipes from './Recipes'; */
 
 // No requisito 22 não foi possivel acessar o estado dentro da função handleButtonCategory,
@@ -68,7 +69,7 @@ function CategoriasRecipes({ foodRecipes }) {
   }
   useEffect(() => {
     renderCategories();
-  });
+  }, []);
 
   return (
     <div>
