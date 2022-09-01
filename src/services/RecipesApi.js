@@ -21,7 +21,7 @@ export async function fetchMealsAPI() {
 // TENTATIVA FINAL //
 // AJUDA DO THIAGO QUADROS //
 
-export async function fetchCatoriesFoodsAPI() {
+export async function fetchCategoriesFoodsAPI() {
   try {
     const data = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     console.log(data);
@@ -32,7 +32,7 @@ export async function fetchCatoriesFoodsAPI() {
   }
 }
 
-export async function fetchCatoriesDrinksAPI() {
+export async function fetchCategoriesDrinksAPI() {
   try {
     const data = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
     const response = await data.json();
@@ -63,7 +63,19 @@ export async function fetchCategoriesFilter(filter, type) {
   }
 }
 
-export const fetchCategories = async (foodRecipes) => {
-  if (foodRecipes === 'meals') return fetchCatoriesFoodsAPI();
-  return fetchCatoriesDrinksAPI();
+export const foodsDrinksDetails = async (url) => {
+  const data = await fetch(url);
+  const response = await data.json();
+  if (url.includes('cocktail')) {
+    return response.drinks[0];
+  } return response.meals[0];
 };
+
+export const fetchCategories = async (foodRecipes) => {
+  if (foodRecipes === 'meals') return fetchCategoriesFoodsAPI();
+  // const fetchCategories2 = async (foodRecipes) => {
+
+  return fetchCategoriesDrinksAPI();
+};
+
+/* export default fetchCategories; */

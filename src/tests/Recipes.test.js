@@ -4,13 +4,9 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import meals from '../../cypress/mocks/meals';
 import drinks from '../../cypress/mocks/drinks';
-import mealsCatogories from '../../cypress/mocks/mealCategories';
-import drinksCatogories from '../../cypress/mocks/drinkCategories';
 import renderWithRouter from './utils/RenderWithRouter';
 import RecipesProvider from '../context/ProviderApp';
 import AllRecipes from '../components/Recipes';
-import App from '../App';
-import mealCategories from '../../cypress/mocks/mealCategories';
 
 describe('Testes da página de Recipes', () => {
   it('Testa se renderiza alguma comida', async () => {
