@@ -25,7 +25,6 @@ function RecipeInProgress() {
   return (
 
     <div>
-      Requisito 37
       <img
         src={ strDrinkThumb || strMealThumb }
         alt="teste"
@@ -53,6 +52,7 @@ function RecipeInProgress() {
       </p>
       <Ingredient
         stateRecipe={ stateRecipe }
+        checked
       />
       {/* //chamar um componente */}
       <div data-testid="instructions" />
