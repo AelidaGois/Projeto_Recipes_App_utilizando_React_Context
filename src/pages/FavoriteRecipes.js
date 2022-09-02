@@ -67,14 +67,14 @@ export default function FavoriteRecipes() {
         <button
           type="button"
           data-testid="filter-by-food-btn"
-          onClick={ () => setFilter('foods') }
+          onClick={ () => setFilter('food') }
         >
           Food
         </button>
         <button
           type="button"
           data-testid="filter-by-drink-btn"
-          onClick={ () => setFilter('drinks') }
+          onClick={ () => setFilter('drink') }
         >
           Drinks
         </button>
