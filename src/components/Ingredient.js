@@ -20,7 +20,6 @@ function Ingredient(props) {
 
       const recebeLocalStorage = [
         ...pegagetLocalStorage[name][id][0], ...listaDeIngredientes];
-      console.log(recebeLocalStorage);
       setlistaDeIngredientes(recebeLocalStorage);
       // se o localstorage for true iremos utilizar o  localstorage
     } else {

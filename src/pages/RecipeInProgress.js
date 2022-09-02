@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Ingredient from '../components/Ingredient';
 import { foodsDrinksDetails } from '../services/RecipesApi';
+import ButtonFavorite from '../components/ButtonFavorite';
+import ButtonShare from '../components/ButtonShare';
 
 function RecipeInProgress() {
   const [stateRecipe, setStateRecipe] = useState({});
@@ -11,8 +13,6 @@ function RecipeInProgress() {
     const url = `https://www.the${split[1] === 'foods' ? 'meal' : 'cocktail'}db.com/api/json/v1/1/lookup.php?i=${split[2]}`;
     const apiResponse = await foodsDrinksDetails(url);
     setStateRecipe(apiResponse);
-    /* const checkedInFavorite = () => (stateFavorite ? 'favorite-btn' : 'favorite-btn');
-    setStateFavorite(); */
     // https://www.themealdb.com/api/json/v1/1/lookup.php?i={id-da-receita}
     // https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={id-da-receita}
   };
@@ -22,11 +22,7 @@ function RecipeInProgress() {
   useEffect(() => {
     chamaApi();
   }, []);
-  /*
-  buttonCompartilhar (event, 'Link copied!' ) {
- event.preventDefault();
- window.open(link do botão)
-  } */
+
   return (
 
     <div>
@@ -38,19 +34,12 @@ function RecipeInProgress() {
       <h2 data-testid="recipe-title">
         { strDrink || strMeal }
       </h2>
-      <button
-        type="button"
-        data-testid="share-btn"
-      >
-        Compartilhar //fazer uma logica para usar componente
-      </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        /* onClick={ checkedInFavorite } */
-      >
-        Favorite
-      </button>
+      <ButtonShare />
+      <ButtonFavorite
+        stateFavorite={ stateRecipe }
+        pageName={ split[1] }
+        id={ split[2] }
+      />
       <p
         data-testid="recipe-category"
       >
