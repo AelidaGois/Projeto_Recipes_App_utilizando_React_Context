@@ -14,17 +14,18 @@ function SearchBar() {
     stateIdDrinks,
     setIdDrinks,
     data,
-    setData } = useContext(ContextApp);
-
+    setData,
+    setAllFoods,
+    setAllDrinks,
+  } = useContext(ContextApp);
   // refatorando 1. separa chamada da api,
   // 2. fazer a checagem do global alet antes de enviar pra api
   // 3.possivel useeffect ao inves d usar outra função
   // 4. atenção estado global e local 5.useeffect? constante vs função
   // 5. constante usar ao inves d estado
-
+  const { pathname } = history.location;
   const getAPI = async (ingrediente, radio) => {
     const url = (radio === 'i' ? 'filter' : 'search');
-    const { pathname } = history.location;
     const domain = (
       pathname === '/drinks' ? 'thecocktaildb' : 'themealdb');
     const endPointIngredient = `https://www.${domain}.com/api/json/v1/1/${url}.php?${radio}=${ingrediente}`;
@@ -34,6 +35,16 @@ function SearchBar() {
       return results;
     } catch (error) {
       return error;
+    }
+  };
+  const filterRecipes = (apiResults) => {
+    // console.log(apiResults);
+    if (pathname === '/foods' && apiResults && apiResults.meals) {
+      return setAllFoods(apiResults);
+    }
+    // console.log(apiResults.drinks);
+    if (pathname === '/drinks' && apiResults && apiResults.drinks) {
+      setAllDrinks(apiResults);
     }
   };
   const handleInput = ({ target: { value } }) => {
@@ -51,25 +62,23 @@ function SearchBar() {
   };
   const redirectToRecipe = async (apiResults) => {
     const treatedApi = await apiResults;
-    const { pathname } = history.location;
     setData({ ...data,
       treatedApi,
     });
     if (pathname.includes('/foods')) {
-      // console.log(treatedApi.meals);
-      if (!treatedApi || treatedApi.meals === null) {
+      if (!treatedApi || !treatedApi.meals) {
         return global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
-      if (treatedApi.meals.length === 1) {
+      if (treatedApi.meals && treatedApi.meals.length === 1) {
         setStateIdMeal(...stateIdMeal,
           treatedApi.meals[0].idMeal);
         return history.push(`/foods/${treatedApi.meals[0].idMeal}`);
       }
     } else {
-      if (!treatedApi || treatedApi.drinks === null) {
+      if (!treatedApi || !treatedApi.drinks) {
         return global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
-      if (treatedApi.drinks.length === 1) {
+      if (treatedApi.drinks && treatedApi.drinks.length === 1) {
         setIdDrinks(...stateIdDrinks,
           treatedApi.drinks[0].idDrink);
         return history.push(`/drinks/${treatedApi.drinks[0].idDrink}`);
@@ -81,9 +90,9 @@ function SearchBar() {
     if (stateSearch.value.length > 1 && stateRadio.id === 'f') {
       global.alert('Your search must have only 1 (one) character');
     } else {
-      console.log(stateRadio.id);
       const apiResults = await getAPI(stateSearch.value, stateRadio.id);
       redirectToRecipe(apiResults);
+      filterRecipes(apiResults);
     }
   };
   return (
