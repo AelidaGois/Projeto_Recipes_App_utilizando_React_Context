@@ -49,7 +49,6 @@ function SearchBar() {
     });
     return id;
   };
-
   const redirectToRecipe = async (apiResults) => {
     const treatedApi = await apiResults;
     const { pathname } = history.location;
@@ -77,7 +76,6 @@ function SearchBar() {
       }
     }
   };
-
   const handleSubmitButton = async (e) => {
     e.preventDefault();
     if (stateSearch.value.length > 1 && stateRadio.id === 'f') {
@@ -88,7 +86,6 @@ function SearchBar() {
       redirectToRecipe(apiResults);
     }
   };
-
   return (
     <div>
       <form>
@@ -142,5 +139,4 @@ function SearchBar() {
     </div>
   );
 }
-
 export default SearchBar;
