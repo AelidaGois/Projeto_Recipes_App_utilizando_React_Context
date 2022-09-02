@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Ingredient from '../components/Ingredient';
 import { foodsDrinksDetails } from '../services/RecipesApi';
 import ButtonFavorite from '../components/ButtonFavorite';
 import ButtonShare from '../components/ButtonShare';
+import RecipeContext from '../context/ContextApp';
 
 function RecipeInProgress() {
+  const { stateTrueFalse } = useContext(RecipeContext);
   const [stateRecipe, setStateRecipe] = useState({});
   const { pathname } = document.location; // pega o pathname que contem a url no document.location
   const { strDrinkThumb, strMealThumb, strMeal, strDrink, strCategory } = stateRecipe;
@@ -13,6 +15,7 @@ function RecipeInProgress() {
     const url = `https://www.the${split[1] === 'foods' ? 'meal' : 'cocktail'}db.com/api/json/v1/1/lookup.php?i=${split[2]}`;
     const apiResponse = await foodsDrinksDetails(url);
     setStateRecipe(apiResponse);
+
     // https://www.themealdb.com/api/json/v1/1/lookup.php?i={id-da-receita}
     // https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={id-da-receita}
   };
@@ -56,8 +59,8 @@ function RecipeInProgress() {
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        /* onClick={}
-        disabled={} */
+        /* onClick={ history.push } */
+        disabled={ stateTrueFalse }
       >
         Finalizar Receita
       </button>

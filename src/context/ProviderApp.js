@@ -17,6 +17,7 @@ function ProviderApp({ children }) {
   const [stateIdMeal, setStateIdMeal] = useState('');
   const [stateIdDrinks, setIdDrinks] = useState('');
   const [data, setData] = useState({});
+  const [stateTrueFalse, setStateTrueFalse] = useState(true);
 
   const valueObj = { stateEmail,
     setStateEmail,
@@ -41,6 +42,8 @@ function ProviderApp({ children }) {
     setIdDrinks,
     data,
     setData,
+    stateTrueFalse,
+    setStateTrueFalse,
 
   };
 

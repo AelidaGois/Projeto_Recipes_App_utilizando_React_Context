@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import RecipeContext from '../context/ContextApp';
 /* import RecipeInProgress from '../pages/RecipeInProgress'; */
 
 function Ingredient(props) {
   const { stateRecipe, checked, pageName, id } = props;
   const [listaDeIngredientes, setlistaDeIngredientes] = useState([]);
+  const { setStateTrueFalse } = useContext(RecipeContext);
 
   const arrayIngredientes = Object.entries(stateRecipe)
     .filter((ingrediente) => (ingrediente[1] && ingrediente[0]
@@ -36,6 +38,11 @@ function Ingredient(props) {
     juntaArrays[name] = { ...objAtualiza };
     /* console.log(juntaArrays); */
     localStorage.setItem('inProgressRecipes', JSON.stringify(juntaArrays));
+    if (arrayIngredientes.length === listaDeIngredientes.length
+        && arrayIngredientes.length) {
+      return setStateTrueFalse(false);
+    }
+    return setStateTrueFalse(true);
   }, [listaDeIngredientes]);
 
   const verificaCheck = (event) => {
@@ -50,7 +57,8 @@ function Ingredient(props) {
     /* console.log(lista); */
     return setlistaDeIngredientes(lista);
   };
-
+  console.log(arrayIngredientes.length);
+  console.log(listaDeIngredientes.length);
   return (
     <div>
       <ul>
