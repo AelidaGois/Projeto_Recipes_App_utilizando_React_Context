@@ -8,6 +8,7 @@ import mealsCatogories from '../../cypress/mocks/mealCategories';
 import drinksCatogories from '../../cypress/mocks/drinkCategories';
 import renderWithRouter from './utils/RenderWithRouter';
 import RecipesProvider from '../context/ProviderApp';
+import corba from './utils/Mock';
 /* import RecipesContext from '../context/ProviderApp'; */
 
 import App from '../App';
@@ -26,40 +27,24 @@ function mockFetch() {
     if (url === 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list') {
       return { json: async () => drinksCatogories };
     }
+    if(url === 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=undefined') {
+      return { json: async () => corba };
+    }
     return { json: async () => mealsCatogories };
   });
 }
 
-// function renderFoods() {
-//   const { history } = renderWithRouter(<App />);
-//   history.push('/foods');
-// }
-
-describe('Testes da página de Recipes', () => {
+describe('Testes da página de RecipesInProgress', () => {
   it('Testa se renderiza alguma comida', async () => {
     mockFetch();
     const { history } = await (waitFor(() => renderWithRouter(
       <RecipesProvider><App /></RecipesProvider>,
     )));
     await act(async () => {
-      history.push('/foods');
+      history.push('/foods/52977/in-progress');
     });
-    expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    /* expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-    expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
-    const beef = screen.getByRole('button', { name: /beef/i });
-    expect(beef).toBeInTheDocument();
-    await act(async () => {
-      userEvent.click(beef);
-    });
-    await act(async () => {
-      userEvent.click(beef);
-    });
-    const pageDrink = screen.getByRole('img', { name: /drink/i });
-    userEvent.click(pageDrink);
-    expect(history.location.pathname).toBe('/drinks');
-    /* const imgComida = screen.getByRole('img', { name: /corba/i });
-    expect(imgComida).toBeInTheDocument();
-    userEvent.click(imgComida); */
+    expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/list.php?c=list'); */
   });
 });

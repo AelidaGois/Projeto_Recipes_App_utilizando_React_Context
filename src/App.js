@@ -12,9 +12,6 @@ import FavoriteRecipes from './pages/FavoriteRecipes';
 import './css/Footer.css';
 import './css/ButtonStartRecipe.css';
 import RecipeInProgress from './pages/RecipeInProgress';
-// import FoodsInProgress from './pages/FoodsInProgress';
-// import DrinksInProgress from './pages/DrinksInProgress';
-import RecipeDetails from './pages/RecipeDetails';
 
 function App() {
   return (
@@ -23,12 +20,8 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route path="/foods/:foodId/in-progress" component={ RecipeInProgress } />
         <Route path="/drinks/:recipeId/in-progress" component={ RecipeInProgress } />
-        {/* <Route path="/foods/:recipeId" component={ FoodRecipes } /> */}
-        {/* <Route path="/drinks/:recipeId" component={ DrinkRecipes } /> */}
-        {/* <Route path="/foods/:foodId/in-progress" component={ FoodsInProgress } />
-        <Route path="/drinks/:recipeId/in-progress" component={ DrinksInProgress } /> */}
-        <Route path="/foods/:recipeId" component={ RecipeDetails } />
-        <Route path="/drinks/:recipeId" component={ RecipeDetails } />
+        {/*  <Route path="/foods/:recipeId" component={ FoodRecipes } />
+        <Route path="/drinks/:recipeId" component={ DrinkRecipes } /> */}
         <Route path="/foods" component={ Foods } />
         <Route path="/drinks" component={ Drinks } />
         <Route path="/profile" component={ Profile } />
