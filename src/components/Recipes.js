@@ -19,7 +19,6 @@ function AllRecipes({ title }) {
 
       const foodsAPI = await fetchMealsAPI();
       setAllFoods(foodsAPI);
-
       // console.log(foodsAPI);
       // console.log(drinksAPI);
     };

@@ -13,17 +13,20 @@ describe('Testes da página de SearchBar', () => {
   const searchInput = 'search-input';
   const execSearchBtn = 'exec-search-btn';
   const nameSearchRadio = 'name-search-radio';
+
   it('Testa se existe um input para busca', () => {
     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
     const inputSearch = screen.getByTestId(searchInput);
     expect(inputSearch).toBeInTheDocument();
   });
+
   it('Testa se existe ao todo 3 radio-button', () => {
     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
     const radio = screen.getAllByRole('radio');
     const n = 3;
     expect(radio.length).toBe(n);
   });
+
   it('Testa se é chamada a API', () => {
     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
     const food = 'arroz';
@@ -33,6 +36,13 @@ describe('Testes da página de SearchBar', () => {
     userEvent.type(inputSearch, food);
     userEvent.click(radio);
     userEvent.click(button);
+   
+  });
+
+  it('Testa se ao clicar no radio button `name` a API correta é chamada', () => {
+    renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
+    const food = 'pão';
+
   });
   it('Testa se ao clicar no radio button `name` a API correta é chamada', () => {
     renderWithRouter(<ProviderApp><SearchBar /></ProviderApp>);
@@ -57,28 +67,7 @@ describe('Testes da página de SearchBar', () => {
     userEvent.click(button);
     expect(global.alert).toHaveBeenCalled();
   });
-  // it('Testa se ao pesquisar uma comida a página é redirecionada', async () => {
-  //   global.fetch = () => Promise.resolve({
-  //     status: 200,
-  //     ok: true,
-  //     json: () => Promise.resolve(oneMeal),
-  //   });
-  //   const { history } = renderWithRouter(<ProviderApp><App /></ProviderApp>);
-  //   history.push('/foods');
-  //   const searchIcon = screen.getByTestId('search-top-btn');
-  //   userEvent.click(searchIcon);
-  //   const inputSearch = screen.getByTestId(searchInput);
-  //   userEvent.type(inputSearch, 'Arrabiata');
-  //   const radioName = screen.getByTestId(nameSearchRadio);
-  //   userEvent.click(radioName);
-  //   const buttonFiltrar = screen.getByTestId(execSearchBtn);
-  //   userEvent.click(buttonFiltrar);
-  //   history.push('/foods/52771');
-  //   const { pathname } = history.location;
-  //   const foodPage = screen.getByTestId(/receitas/i);
-  //   expect(pathname).toBe('/foods/52771');
-  //   expect(foodPage).toBeInTheDocument();
-  // });
+
   it(`Testa senão encontrar
   uma receita de comida apareça um alert`, async() => {
     jest.resetAllMocks();
@@ -95,8 +84,10 @@ describe('Testes da página de SearchBar', () => {
     userEvent.click(radio);
     userEvent.type(inputSearch, 'asdfdfdf');
     userEvent.click(button);
+  
     await waitFor(() => expect(global.alert).toHaveBeenCalled());
   });
+
   it(`Testa senão encontrar
   uma receita de bebida apareça um alert`, async() => {
     jest.resetAllMocks();
@@ -113,11 +104,14 @@ describe('Testes da página de SearchBar', () => {
     userEvent.click(radio);
     userEvent.type(inputSearch, 'asdfdfdf');
     userEvent.click(button);
+  
     await waitFor(() => expect(global.alert).toHaveBeenCalled());
   })
-  it(`Testa se ao  encontrar
+
+  it(`Testa se ao  encontrar 
   uma receita de comida se é redirecionado`, async() => {
     jest.resetAllMocks();
+    
     const { history} = renderWithRouter(<RecipesProvider><SearchBar /></RecipesProvider>);
     history.push('/foods')
     const inputSearch = screen.getByTestId(searchInput);
@@ -149,6 +143,7 @@ describe('Testes da página de SearchBar', () => {
     });
     userEvent.click(button);
     await waitFor(() => expect(fetch).toHaveBeenCalled());
+ 
    expect(history.location.pathname).toBe('/drinks/178319')
   })
   it(`Testa se nada acontece se a API falha`, async() => {
@@ -165,4 +160,6 @@ describe('Testes da página de SearchBar', () => {
     userEvent.click(button);
     expect(history.location.pathname).not.toBe('/drinks/178319')
   })
+
 });
+

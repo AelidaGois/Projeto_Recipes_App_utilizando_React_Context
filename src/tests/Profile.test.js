@@ -5,6 +5,7 @@ import renderWithRouter from './utils/RenderWithRouter';
 
 import App from '../App';
 import ProviderApp from '../context/ProviderApp';
+import RecipesProvider from '../context/ProviderApp';
 
 function urlLink(url, history) {
   expect(history.location.pathname).toBe(`${url}`);

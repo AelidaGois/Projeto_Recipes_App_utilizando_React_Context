@@ -15,11 +15,13 @@ function SearchBar() {
     setIdDrinks,
     data,
     setData } = useContext(ContextApp);
+
   // refatorando 1. separa chamada da api,
   // 2. fazer a checagem do global alet antes de enviar pra api
   // 3.possivel useeffect ao inves d usar outra função
   // 4. atenção estado global e local 5.useeffect? constante vs função
   // 5. constante usar ao inves d estado
+
   const getAPI = async (ingrediente, radio) => {
     const url = (radio === 'i' ? 'filter' : 'search');
     const { pathname } = history.location;
