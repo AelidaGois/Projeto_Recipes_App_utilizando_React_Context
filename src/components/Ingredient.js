@@ -57,8 +57,6 @@ function Ingredient(props) {
     /* console.log(lista); */
     return setlistaDeIngredientes(lista);
   };
-  console.log(arrayIngredientes.length);
-  console.log(listaDeIngredientes.length);
   return (
     <div>
       <ul>

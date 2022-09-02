@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import Ingredient from '../components/Ingredient';
 import { foodsDrinksDetails } from '../services/RecipesApi';
@@ -5,7 +6,8 @@ import ButtonFavorite from '../components/ButtonFavorite';
 import ButtonShare from '../components/ButtonShare';
 import RecipeContext from '../context/ContextApp';
 
-function RecipeInProgress() {
+function RecipeInProgress(props) {
+  const { history } = props;
   const { stateTrueFalse } = useContext(RecipeContext);
   const [stateRecipe, setStateRecipe] = useState({});
   const { pathname } = document.location; // pega o pathname que contem a url no document.location
@@ -59,7 +61,7 @@ function RecipeInProgress() {
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        /* onClick={ history.push } */
+        onClick={ () => history.push('/done-recipes') }
         disabled={ stateTrueFalse }
       >
         Finalizar Receita
@@ -67,5 +69,11 @@ function RecipeInProgress() {
     </div>
   );
 }
+
+RecipeInProgress.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
 export default RecipeInProgress;
 // id bebida 14610
