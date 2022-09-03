@@ -17,24 +17,7 @@ function SearchBar() {
     setIdDrinks,
     data,
     setData } = useContext(ContextApp);
-  console.log(data);
-  // refatorando 1. separa chamada da api,
-  // 2. fazer a checagem do global alet antes de enviar pra api
-  // 3.possivel useeffect ao inves d usar outra função
-  // 4. atenção estado global e local 5.useeffect? constante vs função
-  // 5. constante usar ao inves d estado
 
-  /* const getAPI = async (ingrediente, radio) => {
-    const url = (radio === 'i' ? 'filter' : 'search');
-    const { pathname } = history.location;
-    const domain = (
-      pathname === '/drinks' ? 'thecocktaildb' : 'themealdb');
-    const endPointIngredient = `https://www.${domain}.com/api/json/v1/1/${url}.php?${radio}=${ingrediente}`;
-    const response = await fetch(endPointIngredient);
-    const results = await response.json();
-    return response.ok ? Promise.resolve(results)
-      : Promise.reject(results);
-  }; */
   const handleInput = ({ target: { value } }) => {
     setStateSearch({
       ...stateSearch, value,
