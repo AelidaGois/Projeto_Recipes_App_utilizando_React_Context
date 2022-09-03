@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ContextRecipes } from '../context/ProviderApp';
 import { fetchDrinksAPI, fetchMealsAPI } from '../services/RecipesApi';
 
 function FoodCards(props) {
