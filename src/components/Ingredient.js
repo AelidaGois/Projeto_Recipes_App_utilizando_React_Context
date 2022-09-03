@@ -16,7 +16,6 @@ function Ingredient(props) {
   const arrayMeasure = Object.entries(stateRecipe)
     .filter((measure) => (measure[1] && measure[0]
       .includes('strMeasure') && measure[1].length > 0 && measure[1] !== ' '));
-  console.log(arrayMeasure);
 
   const name = pageName === 'foods' ? 'meal' : 'cocktail';
   // DidMount

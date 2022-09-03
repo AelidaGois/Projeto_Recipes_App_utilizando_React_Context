@@ -4,6 +4,7 @@ import ButtonFavorite from '../components/ButtonFavorite';
 import ButtonShare from '../components/ButtonShare';
 import ButtonStartRecipe from '../components/ButtonStartRecipe';
 import Ingredient from '../components/Ingredient';
+import RecomenendedRecipe from './RecomendedRecipes';
 import { foodsDrinksDetails } from '../services/RecipesApi';
 
 function RecipeDetails() {
@@ -32,7 +33,6 @@ function RecipeDetails() {
     // everything in here runs when app renders
     // inside array = when array value changes useEffect runs
   }, []);
-  console.log(item);
   return (
     <main>
       <div>
@@ -69,10 +69,12 @@ function RecipeDetails() {
         >
           strYoutube
         </iframe>
-        <p data-testid="12345-recomendation-card">receitas recomendadas</p>
       </div>
       <div>
         <ButtonStartRecipe id={ params.recipeId } page={ pathname.split('/')[1] } />
+      </div>
+      <div>
+        <RecomenendedRecipe linkToPage={ splitPathname } />
       </div>
     </main>
   );
