@@ -61,7 +61,14 @@ function RecipeDetails() {
           pageName={ splitPathname[1] }
           id={ splitPathname[2] }
         />
-        <iframe data-testid="video" width="200" src={ strYoutube } title="strYoutube">strYoutube</iframe>
+        <iframe
+          data-testid="video"
+          width="200"
+          src={ strYoutube }
+          title="strYoutube"
+        >
+          strYoutube
+        </iframe>
         <p data-testid="12345-recomendation-card">receitas recomendadas</p>
       </div>
       <div>

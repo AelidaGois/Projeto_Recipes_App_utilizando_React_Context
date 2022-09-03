@@ -27,7 +27,6 @@ function ProviderApp({ children }) {
     setStateSearch,
     stateRadio,
     setStateRadio,
-
     allFoods,
     setAllFoods,
     allDrinks,
