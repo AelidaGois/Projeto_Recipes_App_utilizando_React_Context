@@ -13,6 +13,10 @@ function Ingredient(props) {
       .includes('Ingredient') && ingrediente[1].length > 0));
   //   console.log(arrayIngredientes[1]);
 
+  const arrayMeasure = Object.entries(stateRecipe)
+    .filter((measure) => (measure[1] && measure[0]
+      .includes('strMeasure') && measure[1].length > 0 && measure[1] !== ' '));
+
   const name = pageName === 'foods' ? 'meal' : 'cocktail';
   // DidMount
   useEffect(() => {
@@ -63,14 +67,15 @@ function Ingredient(props) {
         {arrayIngredientes.map((ingrediente, index) => (
           <li
             key={ ingrediente[0] }
-            data-testid={ `${index}-ingredient-step` }
+            data-testid={ checked ? `${index}-ingredient-step`
+              : `${index}-ingredient-name-and-measure` }
           >
-            {checked && <input
+            {checked ? <input
               name={ ingrediente[1] }
               type="checkbox"
               checked={ listaDeIngredientes.includes(ingrediente[1]) }
               onChange={ verificaCheck }
-            />}
+            /> : arrayMeasure[index][1]}
             { ingrediente[1] }
           </li>
         ))}
